@@ -20,14 +20,15 @@ class ShoppingCart {
     // Ticket SHOP-405 Win: Quantity-Aware Accumulator Engine
     getCartTotal() {
         let grandTotal = 0;
-        
+        if(this.items.length === 0){
+            return grandTotal;
+        }
         this.items.forEach(item => {
             let itemCost = item.price * item.quantity;
             grandTotal += itemCost;
         });
-        
         return grandTotal;
-    }
+}
 
     // Ticket SHOP-403 Win: Dynamic Discount Verification Engine
     applyDiscount(percentage) {
@@ -58,14 +59,19 @@ class ShoppingCart {
 // INTEGRATION SANDBOX (Wired outside the class for browser event hooks)
 // ======================================================================
 const myCart = new ShoppingCart();
-const addBtn = document.querySelector('#add-button');
-const displayTotal = document.querySelector('#cart-total');
+const addBtn = document.querySelector('#add-button');//grab btn
+const displayTotal = document.querySelector('#cart-total'); // grab view
 
 // Guard rail: Only wire up event loops if the physical HTML nodes exist on screen
 if (addBtn && displayTotal) {
     addBtn.addEventListener('click', () => {
         // Test simulation: Add a standard item to change the state tracker
         myCart.addItem("Kota", 30);
+        myCart.addItem("drink", 18);
+
         displayTotal.textContent = `R${myCart.getCartTotal()}`;
     });
 }
+const testCart = new ShoppingCart();
+console.log(testCart.getCartTotal()); 
+
