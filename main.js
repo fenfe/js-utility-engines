@@ -53,6 +53,17 @@ class ShoppingCart {
             console.log("Error: Product name not found in repository!");
         }
     }
+
+    // Ticket SHOP-407 : Implement Total Item-Quantity Accumulator Engine
+    getCartItemCount(){
+        let totalCartItems = 0;
+
+        this.items.forEach((obj) => {
+            totalCartItems += obj.quantity;
+        });
+        return totalCartItems;
+    }
+    
 }
 
 // ======================================================================
@@ -73,5 +84,17 @@ if (addBtn && displayTotal) {
     });
 }
 const testCart = new ShoppingCart();
-console.log(testCart.getCartTotal()); 
+// console.log(testCart.getCartTotal()); 
+const testEngine = new ShoppingCart();
+console.log("Test 1 Result (Expected: 0) ->", testEngine.getCartItemCount());
+
+// Simulate user clicking and adding items to the RAM database array
+testEngine.addItem("Kota", 30);   // Quantity: 1
+testEngine.addItem("Kota", 30);   // Quantity updates to: 2
+testEngine.addItem("Drink", 18);  // Quantity: 1
+testEngine.addItem("Drink", 18);  // Quantity updates to: 2
+testEngine.addItem("Chips", 15);  // Quantity: 1
+
+console.log("Test 2 Result (Expected: 5) ->", testEngine.getCartItemCount());
+
 
