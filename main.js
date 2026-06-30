@@ -63,6 +63,13 @@ class ShoppingCart {
         });
         return totalCartItems;
     }
+    // Ticket SHOP-408 : Implement Fail-Safe Cart Cleansing Reset Module
+    resetCart(){
+        if(this.items.length === 0){
+            return;
+        }
+            this.items = [];
+    }
     
 }
 
@@ -96,5 +103,7 @@ testEngine.addItem("Drink", 18);  // Quantity updates to: 2
 testEngine.addItem("Chips", 15);  // Quantity: 1
 
 console.log("Test 2 Result (Expected: 5) ->", testEngine.getCartItemCount());
+
+
 
 
